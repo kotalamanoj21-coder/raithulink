@@ -590,8 +590,7 @@ function requestProduct(product){
 }
 
 
-async function publishProduct(event){
-
+async function publishProduct(event) {
   event.preventDefault();
 
   const name = document.getElementById("productName").value;
@@ -600,25 +599,41 @@ async function publishProduct(event){
   const district = document.getElementById("productDistrict").value;
   const details = document.getElementById("productDetails").value;
 
-  const { data, error } = await supabaseClient
-    .from("products")
-    .insert([
+  try {
+    const response = await fetch(
+      "https://ofbqvacmamleoepsuch.supabase.co/functions/v1/dynamic-task",
       {
-        product_name: name,
-        category: category,
-        price: price,
-        quantity: details,
-        district: district,
-        description: details,
-        available_today: true
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          product_name: name,
+          category: category,
+          price: price,
+          quantity: details,
+          district: district,
+          description: details,
+          available_today: true
+        })
       }
-    ]);
+    );
 
-  if (error) {
+    const result = await response.json();
 
+    if (!response.ok) {
+      throw new Error(result.error || "Product save failed");
+    }
+
+    alert("✅ Product saved successfully!");
+
+    event.target.reset();
+
+  } catch (error) {
     alert("❌ Product save failed!\n\n" + error.message);
     console.error(error);
-
+  }
+}
     return;
   }
 
