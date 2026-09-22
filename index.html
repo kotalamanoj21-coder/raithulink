@@ -591,24 +591,45 @@ function requestProduct(product){
 }
 
 
-function publishProduct(event){
+async function publishProduct(event){
 
   event.preventDefault();
 
-  const name =
-    document.getElementById("productName").value;
+  const name = document.getElementById("productName").value;
+  const category = document.getElementById("productCategory").value;
+  const price = document.getElementById("productPrice").value;
+  const district = document.getElementById("productDistrict").value;
+  const details = document.getElementById("productDetails").value;
+
+  const { data, error } = await supabaseClient
+    .from("products")
+    .insert([
+      {
+        product_name: name,
+        category: category,
+        price: price,
+        quantity: details,
+        district: district,
+        description: details,
+        available_today: true
+      }
+    ]);
+
+  if (error) {
+
+    alert("❌ Product save failed!\n\n" + error.message);
+    console.error(error);
+
+    return;
+  }
 
   alert(
-    "✅ Product published successfully!\n\n" +
-    name +
-    "\n\n" +
-    "This is a prototype. In the real version, this product will be stored in a database and visible to buyers."
+    "✅ Product saved successfully!\n\n" +
+    "Your product is now stored in RaithuLink database."
   );
 
   event.target.reset();
-
 }
-
 </script>
 
 </body>
