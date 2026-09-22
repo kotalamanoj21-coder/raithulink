@@ -1,143 +1,605 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="te">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RaithuLink - Farmer Marketplace Prototype</title>
+<title>RaithuLink - Telangana Farmer Marketplace</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7f2;color:#17321d}
-.app{max-width:430px;margin:auto;min-height:100vh;background:#fff;box-shadow:0 0 30px #0001}
-header{background:#176b3a;color:#fff;padding:22px 18px 18px;border-radius:0 0 22px 22px}
-.logo{font-size:25px;font-weight:800}.tag{font-size:13px;opacity:.85;margin-top:5px}
-.search{margin-top:16px;background:#fff;border-radius:12px;padding:12px;color:#777}
-main{padding:18px}.section{margin:22px 0}.title{font-size:19px;font-weight:800;margin-bottom:12px}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{border:1px solid #e2e9e2;border-radius:15px;padding:13px;background:#fff}
-.emoji{font-size:38px;background:#eef6ed;border-radius:12px;text-align:center;padding:12px}
-.name{font-weight:700;margin-top:9px}.muted{font-size:12px;color:#718075;margin-top:4px}
-.price{font-weight:800;color:#176b3a;margin-top:7px}
-.btn{border:0;background:#176b3a;color:#fff;border-radius:10px;padding:11px 13px;font-weight:700;cursor:pointer}
-.btn.secondary{background:#eef5ee;color:#176b3a}
-.full{width:100%;margin-top:10px}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:430px;width:100%;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:10px 5px}
-.nav button{border:0;background:none;color:#617064;font-size:11px;cursor:pointer}.nav .active{color:#176b3a;font-weight:800}
-.page{display:none;padding-bottom:80px}.page.active{display:block}
-.form label{display:block;font-size:13px;font-weight:700;margin:12px 0 5px}.form input,.form select,.form textarea{width:100%;padding:12px;border:1px solid #d7dfd7;border-radius:10px;font-size:14px}
-.back{border:0;background:none;color:#176b3a;font-weight:700;padding:0;margin-bottom:12px}
-.badge{display:inline-block;background:#e6f5e8;color:#176b3a;padding:5px 8px;border-radius:20px;font-size:11px;font-weight:700}
-.notice{background:#fff8df;border:1px solid #f0df9a;padding:12px;border-radius:12px;font-size:13px;line-height:1.4}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f7f2;
+  color:#263326;
+}
+
+header{
+  background:#1f6b3a;
+  color:white;
+  padding:18px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:bold;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:18px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#e8f5e9,#fff8e1);
+  padding:55px 6%;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:36px;
+  color:#1f6b3a;
+  margin-bottom:15px;
+}
+
+.hero p{
+  font-size:18px;
+  margin-bottom:25px;
+}
+
+.search{
+  max-width:800px;
+  margin:auto;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.search input,.search select{
+  padding:14px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  flex:1;
+  min-width:180px;
+}
+
+button{
+  background:#1f6b3a;
+  color:white;
+  border:0;
+  padding:13px 20px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+section{
+  padding:45px 6%;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.section-title h2{
+  color:#1f6b3a;
+  margin-bottom:8px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.card .emoji{
+  font-size:45px;
+}
+
+.card h3{
+  margin:10px 0;
+}
+
+.price{
+  color:#d46b00;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.location{
+  color:#666;
+  margin:8px 0 15px;
+}
+
+.badge{
+  display:inline-block;
+  background:#e8f5e9;
+  color:#1f6b3a;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  text-align:center;
+}
+
+.step{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.step-number{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+form{
+  max-width:700px;
+  margin:auto;
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+form input,form select,form textarea{
+  width:100%;
+  padding:13px;
+  margin:8px 0 15px;
+  border:1px solid #ccc;
+  border-radius:7px;
+}
+
+form textarea{
+  min-height:100px;
+}
+
+footer{
+  background:#173b25;
+  color:white;
+  text-align:center;
+  padding:25px;
+  margin-top:20px;
+}
+
+.hidden{
+  display:none;
+}
+
+@media(max-width:600px){
+  .hero h1{
+    font-size:28px;
+  }
+
+  header{
+    flex-direction:column;
+    gap:12px;
+  }
+
+  nav a{
+    margin:0 6px;
+    font-size:14px;
+  }
+}
 </style>
 </head>
+
 <body>
-<div class="app">
 
-<div id="home" class="page active">
 <header>
-<div class="logo">🌾 RaithuLink</div>
-<div class="tag">Farmers → Buyers • Know what's available before you travel</div>
-<div class="search">🔎 Search corn, vegetables, goats, milk...</div>
+  <div class="logo">🌾 RaithuLink</div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#sell">Sell</a>
+    <a href="#how">How It Works</a>
+  </nav>
 </header>
-<main>
-<div class="section">
-<div class="title">What are you looking for?</div>
-<div class="cards">
-<div class="card" onclick="show('products')"><div class="emoji">🌽</div><div class="name">Crops</div><div class="muted">Corn, rice, tomatoes...</div></div>
-<div class="card"><div class="emoji">🐐</div><div class="name">Livestock</div><div class="muted">Goats, sheep, buffalo...</div></div>
-</div>
-</div>
-<div class="section">
-<div class="title">Available Today</div>
-<div class="card" onclick="show('detail')">
-<span class="badge">AVAILABLE TODAY</span>
-<div class="name">🌽 Fresh Corn</div>
-<div class="muted">500 kg • Village: Example Village</div>
-<div class="price">₹25 / kg</div>
-<button class="btn full">View Details</button>
-</div>
-</div>
-<div class="section">
-<div class="notice"><b>💡 Our main idea</b><br>Buyers can check availability before travelling long distances. Sellers can update quantity and availability when stock changes.</div>
-</div>
-</main>
-</div>
 
-<div id="products" class="page">
-<main>
-<button class="back" onclick="show('home')">← Home</button>
-<div class="title">Available Products</div>
-<div class="card">
-<span class="badge">AVAILABLE</span>
-<div class="name">🌽 Fresh Corn</div><div class="muted">500 kg • Example Village</div>
-<div class="price">₹25 / kg</div>
-<button class="btn full" onclick="show('detail')">View Product</button>
-</div>
-<div class="card" style="margin-top:12px">
-<span class="badge">AVAILABLE</span>
-<div class="name">🍅 Tomatoes</div><div class="muted">300 kg • Nearby Village</div>
-<div class="price">₹30 / kg</div>
-<button class="btn secondary full">View Product</button>
-</div>
-</main>
-</div>
+<section class="hero" id="home">
 
-<div id="detail" class="page">
-<main>
-<button class="back" onclick="show('products')">← Products</button>
-<div class="emoji">🌽</div>
-<div class="title" style="margin-top:14px">Fresh Corn</div>
-<span class="badge">AVAILABLE TODAY</span>
-<p class="muted">Seller: Demo Farmer</p>
-<p><b>Quantity:</b> 500 kg</p>
-<p><b>Price:</b> ₹25/kg</p>
-<p><b>Location:</b> Example Village</p>
-<p><b>Quality:</b> Fresh • Farm harvested</p>
-<button class="btn full" onclick="alert('Buyer request sent to the farmer in this prototype.')">Request / Reserve</button>
-<button class="btn secondary full" onclick="alert('In the real app, farmer phone number stays hidden and chat is used.')">Chat with Seller</button>
-</main>
-</div>
+  <h1>🌾 మీ గ్రామంలో ఏం అందుబాటులో ఉందో ముందే తెలుసుకోండి</h1>
 
-<div id="sell" class="page">
-<main>
-<div class="title">Sell Your Product</div>
-<div class="form">
-<label>Product</label><input id="product" placeholder="e.g. Corn">
-<label>Quantity</label><input placeholder="e.g. 500 kg">
-<label>Price</label><input placeholder="e.g. ₹25/kg">
-<label>Village / Location</label><input placeholder="Village name">
-<label>Available date</label><input type="date">
-<label>Details</label><textarea rows="4" placeholder="Quality, harvesting time, etc."></textarea>
-<button class="btn full" onclick="submitListing()">Publish Listing</button>
-</div>
-</main>
-</div>
+  <p>
+    రైతు నుంచి కొనుగోలుదారుడికి నేరుగా.
+    <br>
+    Check agricultural products available near you before travelling.
+  </p>
 
-<div id="orders" class="page">
-<main>
-<div class="title">Orders / Requests</div>
-<div class="card"><span class="badge">DEMO REQUEST</span><div class="name">Corn • 100 kg</div><div class="muted">Buyer wants to collect tomorrow</div><button class="btn full" onclick="alert('Request accepted in this prototype.')">Accept Request</button></div>
-</main>
-</div>
+  <div class="search">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search corn, goat, tomato..."
+      onkeyup="filterProducts()"
+    >
 
-<div class="nav">
-<button id="n-home" class="active" onclick="show('home')">🏠<br>Home</button>
-<button id="n-products" onclick="show('products')">🔎<br>Browse</button>
-<button id="n-sell" onclick="show('sell')">➕<br>Sell</button>
-<button id="n-orders" onclick="show('orders')">📦<br>Orders</button>
-</div>
-</div>
+    <select id="categoryFilter" onchange="filterProducts()">
+      <option value="">All Categories</option>
+      <option value="crop">Crops</option>
+      <option value="livestock">Livestock</option>
+    </select>
+
+    <select id="districtFilter" onchange="filterProducts()">
+      <option value="">All Telangana Districts</option>
+      <option value="Rangareddy">Rangareddy</option>
+      <option value="Nalgonda">Nalgonda</option>
+      <option value="Warangal">Warangal</option>
+    </select>
+  </div>
+
+</section>
+
+
+<section id="products">
+
+  <div class="section-title">
+    <h2>🌾 ఈరోజు అందుబాటులో ఉన్నవి</h2>
+    <p>Available products from Telangana farmers</p>
+  </div>
+
+  <div class="cards" id="productCards">
+
+    <div class="card product"
+         data-name="corn"
+         data-category="crop"
+         data-district="Rangareddy">
+
+      <div class="emoji">🌽</div>
+
+      <span class="badge">Available Today</span>
+
+      <h3>మొక్కజొన్న / Corn</h3>
+
+      <div class="price">₹25 / kg</div>
+
+      <div class="location">📍 Rangareddy, Telangana</div>
+
+      <p>
+        Fresh corn directly from farmer.
+        Available for today's buyers.
+      </p>
+
+      <br>
+
+      <button onclick="requestProduct('Corn')">
+        Request Product
+      </button>
+
+    </div>
+
+
+    <div class="card product"
+         data-name="goat"
+         data-category="livestock"
+         data-district="Nalgonda">
+
+      <div class="emoji">🐐</div>
+
+      <span class="badge">Available Today</span>
+
+      <h3>మేక / Goat</h3>
+
+      <div class="price">₹8,500</div>
+
+      <div class="location">📍 Nalgonda, Telangana</div>
+
+      <p>
+        Healthy goat available from local farmer.
+      </p>
+
+      <br>
+
+      <button onclick="requestProduct('Goat')">
+        Contact / Request
+      </button>
+
+    </div>
+
+
+    <div class="card product"
+         data-name="tomato"
+         data-category="crop"
+         data-district="Warangal">
+
+      <div class="emoji">🍅</div>
+
+      <span class="badge">Available Today</span>
+
+      <h3>టమాటా / Tomato</h3>
+
+      <div class="price">₹30 / kg</div>
+
+      <div class="location">📍 Warangal, Telangana</div>
+
+      <p>
+        Fresh tomatoes directly from the farm.
+      </p>
+
+      <br>
+
+      <button onclick="requestProduct('Tomato')">
+        Request Product
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="how">
+
+  <div class="section-title">
+    <h2>💡 How RaithuLink Works</h2>
+    <p>రైతులకు మరియు చిన్న వ్యాపారులకు సులభమైన marketplace</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-number">1️⃣</div>
+      <h3>Farmer Lists</h3>
+      <p>
+        రైతు తన product, quantity, quality,
+        price మరియు location upload చేస్తాడు.
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2️⃣</div>
+      <h3>Buyer Searches</h3>
+      <p>
+        Buyer తనకు కావాల్సిన product
+        మరియు district search చేస్తాడు.
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3️⃣</div>
+      <h3>Check Availability</h3>
+      <p>
+        Buyer వెళ్లే ముందు product
+        available ఉందో తెలుసుకుంటాడు.
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4️⃣</div>
+      <h3>Request & Buy</h3>
+      <p>
+        Buyer request పంపి farmer తో
+        transaction complete చేసుకోవచ్చు.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="sell">
+
+  <div class="section-title">
+    <h2>🌱 Sell Your Product</h2>
+    <p>మీ వ్యవసాయ ఉత్పత్తిని RaithuLink లో list చేయండి</p>
+  </div>
+
+  <form onsubmit="publishProduct(event)">
+
+    <label>Product Name</label>
+
+    <input
+      id="productName"
+      type="text"
+      placeholder="Example: Corn"
+      required
+    >
+
+    <label>Category</label>
+
+    <select id="productCategory" required>
+
+      <option value="">Select Category</option>
+
+      <option value="crop">Crop</option>
+
+      <option value="livestock">Livestock</option>
+
+      <option value="other">Other</option>
+
+    </select>
+
+
+    <label>Price</label>
+
+    <input
+      id="productPrice"
+      type="text"
+      placeholder="Example: ₹25/kg"
+      required
+    >
+
+
+    <label>District</label>
+
+    <select id="productDistrict" required>
+
+      <option value="">Select District</option>
+
+      <option>Rangareddy</option>
+
+      <option>Nalgonda</option>
+
+      <option>Warangal</option>
+
+      <option>Hyderabad</option>
+
+      <option>Medak</option>
+
+      <option>Sangareddy</option>
+
+      <option>Karimnagar</option>
+
+      <option>Khammam</option>
+
+    </select>
+
+
+    <label>Quantity / Details</label>
+
+    <textarea
+      id="productDetails"
+      placeholder="Example: 500 kg fresh corn available today"
+      required
+    ></textarea>
+
+
+    <button type="submit">
+      Publish Product
+    </button>
+
+  </form>
+
+</section>
+
+
+<footer>
+
+  <h3>🌾 RaithuLink</h3>
+
+  <p>
+    Telangana / India Agricultural Marketplace Prototype
+  </p>
+
+  <p>
+    రైతు → RaithuLink → Buyer
+  </p>
+
+</footer>
+
+
 <script>
-function show(id){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
- const n=document.getElementById('n-'+id); if(n)n.classList.add('active');
- window.scrollTo(0,0);
+
+function filterProducts(){
+
+  const search =
+    document.getElementById("searchInput")
+    .value.toLowerCase();
+
+  const category =
+    document.getElementById("categoryFilter")
+    .value;
+
+  const district =
+    document.getElementById("districtFilter")
+    .value;
+
+  const products =
+    document.querySelectorAll(".product");
+
+  products.forEach(product => {
+
+    const name =
+      product.dataset.name;
+
+    const productCategory =
+      product.dataset.category;
+
+    const productDistrict =
+      product.dataset.district;
+
+    const searchMatch =
+      name.includes(search);
+
+    const categoryMatch =
+      !category ||
+      productCategory === category;
+
+    const districtMatch =
+      !district ||
+      productDistrict === district;
+
+    if(
+      searchMatch &&
+      categoryMatch &&
+      districtMatch
+    ){
+
+      product.classList.remove("hidden");
+
+    }else{
+
+      product.classList.add("hidden");
+
+    }
+
+  });
+
 }
-function submitListing(){
- const p=document.getElementById('product').value || 'Your product';
- alert(p+' listing published! In the full version this will be saved to a database and visible to buyers.');
- show('home');
+
+
+function requestProduct(product){
+
+  alert(
+    "🌾 Request sent for " +
+    product +
+    "!\n\n" +
+    "This is a prototype. " +
+    "In the real app, the buyer and farmer can chat and confirm availability."
+  );
+
 }
+
+
+function publishProduct(event){
+
+  event.preventDefault();
+
+  const name =
+    document.getElementById("productName").value;
+
+  alert(
+    "✅ Product published successfully!\n\n" +
+    name +
+    "\n\n" +
+    "This is a prototype. In the real version, this product will be stored in a database and visible to buyers."
+  );
+
+  event.target.reset();
+
+}
+
 </script>
+
 </body>
 </html>
